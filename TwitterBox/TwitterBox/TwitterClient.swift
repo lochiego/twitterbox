@@ -33,8 +33,8 @@ class TwitterClient: BDBOAuth1SessionManager {
     loginCompletion = completion
     
     // Fetch request token and redirect to authorization page
-    TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
-    TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth/request_token",
+    requestSerializer.removeAccessToken()
+    fetchRequestTokenWithPath("oauth/request_token",
       method: "GET", callbackURL: NSURL(string: "ericcptwitterdemo://oauth"), scope: nil,
       success: { (requestToken) -> Void in
         print("Got the request token")
@@ -57,8 +57,8 @@ class TwitterClient: BDBOAuth1SessionManager {
   func openUrl(url: NSURL) -> () {
     fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken) -> Void in
       print("Got the access token")
-      TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
-      TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (operation, response) -> Void in
+      self.requestSerializer.saveAccessToken(accessToken)
+      self.GET("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (operation, response) -> Void in
         if let response = response {
           let user = User(dictionary: response as! NSDictionary)
           User.currentUser = user
@@ -80,7 +80,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     if let limit = limit {
       parameters["count"] = limit
     }
-    TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: parameters, progress: nil, success: { (operation, response) -> Void in
+    GET("1.1/statuses/home_timeline.json", parameters: parameters, progress: nil, success: { (operation, response) -> Void in
       if let response = response {
         let tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
         callback?(tweets: tweets, error: nil)
@@ -88,5 +88,21 @@ class TwitterClient: BDBOAuth1SessionManager {
       }, failure: { (operation, error) -> Void in
         callback?(tweets: nil, error: error)
     })
+  }
+  
+  func retweet(tweetId: Int, retweet: Bool, completion: ((success: Bool, error: NSError?) -> Void)) {
+    POST("1.1/statuses/\(retweet ? "" : "un")retweet/\(tweetId).json", parameters: nil, progress: nil, success: { (operation, response) -> Void in
+        completion(success: true, error: nil)
+      }) { (operation, error) -> Void in
+        completion(success: false, error: error)
+    }
+  }
+
+  func likeTweet(tweetId: Int, like: Bool, completion: ((success: Bool, error: NSError?) -> Void)) {
+    POST("1.1/favorites/\(like ? "create" : "destroy").json", parameters: ["id":tweetId], progress: nil, success: { (operation, response) -> Void in
+      completion(success: true, error: nil)
+      }) { (operation, error) -> Void in
+        completion(success: false, error: error)
+    }
   }
 }
