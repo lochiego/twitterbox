@@ -17,6 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
+    
+    if User.currentUser != nil {
+      print("There is a current user")
+    }
+    else {
+      print("There is no current user")
+    }
+    
     return true
   }
 
@@ -44,35 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
     
-//    TwitterClient.sharedInstance.loginWithBlock() {
-//      // go to next screen
-//    }
+    TwitterClient.sharedInstance.openUrl(url)
     
-    TwitterClient.sharedInstance.fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken) -> Void in
-      print("Got the access token")
-      TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
-      
-      
-      TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (operation, response) -> Void in
-        if let response = response {
-          print("user: \(response)")
-        }
-        }, failure: { (operation, error) -> Void in
-          print("error getting current user")
-       })
-      
-      TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (operation, response) -> Void in
-        if let response = response {
-          print("timeline: \(response)")
-        }
-        }, failure: { (operation, error) -> Void in
-          print("error getting current user's timeline")
-      })
-      
-      
-      }) { (error) -> Void in
-        print("Failed to receive access token")
-    }
     return true
   }
 
