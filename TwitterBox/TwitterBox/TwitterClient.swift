@@ -15,6 +15,8 @@ let twitterBaseURL = NSURL(string: "https://api.twitter.com")
 
 class TwitterClient: BDBOAuth1SessionManager {
   
+  static let userDidLogoutNotification = "UserDidLogout"
+  
   var loginCompletion: ((user: User?, error: NSError?) -> ())?
   
   class var sharedInstance: TwitterClient {
@@ -43,6 +45,13 @@ class TwitterClient: BDBOAuth1SessionManager {
         self.loginCompletion?(user: nil, error: error)
     }
     
+  }
+  
+  func logout() {
+    User.currentUser = nil
+    deauthorize()
+    
+    NSNotificationCenter.defaultCenter().postNotificationName(TwitterClient.userDidLogoutNotification, object: nil)
   }
   
   func openUrl(url: NSURL) -> () {
