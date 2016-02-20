@@ -11,8 +11,8 @@ import UIKit
 let currentUserKey = "currentUserData"
 
 class User: NSObject {
-  var name: String?
-  var screenname: String?
+  var name: String!
+  var screenname: String!
   var profileImageUrl: String?
   var tagline: String?
   

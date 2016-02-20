@@ -67,23 +67,26 @@ class TwitterClient: BDBOAuth1SessionManager {
         }, failure: { (operation, error) -> Void in
           self.loginCompletion?(user: nil, error: error)
       })
-      
-      TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (operation, response) -> Void in
-        if let response = response {
-          //          print("timeline: \(response)")
-          let tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
-          for tweet in tweets {
-            print("text:\(tweet.text), created at:\(tweet.createdAt)")
-          }
-        }
-        }, failure: { (operation, error) -> Void in
-          print("error getting current user's timeline")
-      })
-      
-      
-      
       }) { (error) -> Void in
         self.loginCompletion?(user: nil, error: error)
     }
+  }
+  
+  func fetchTweetsOlderThan(oldestId: Int?, limit: Int? = 20, callback: ((tweets: [Tweet]?, error: NSError?) -> Void)?) {
+    var parameters = [String:AnyObject]()
+    if let oldestId = oldestId {
+      parameters["max_id"] = oldestId
+    }
+    if let limit = limit {
+      parameters["count"] = limit
+    }
+    TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: parameters, progress: nil, success: { (operation, response) -> Void in
+      if let response = response {
+        let tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
+        callback?(tweets: tweets, error: nil)
+      }
+      }, failure: { (operation, error) -> Void in
+        callback?(tweets: nil, error: error)
+    })
   }
 }
