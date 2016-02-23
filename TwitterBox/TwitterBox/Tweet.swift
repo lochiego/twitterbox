@@ -27,11 +27,6 @@ class Tweet: NSObject {
     return df
   }
   
-  static var humanFormatter: NSDateFormatter {
-    let df = NSDateFormatter()
-    df.dateFormat = "hh:mm a - d MMM y "
-    return df
-  }
   
   init(dictionary: NSDictionary) {
     self.dictionary = dictionary
@@ -41,7 +36,26 @@ class Tweet: NSObject {
     let dateString = dictionary["created_at"] as! String
     
     createdAt = Tweet.formatter.dateFromString(dateString)
-    createdAtString = Tweet.humanFormatter.stringFromDate(createdAt)
+    let components = NSCalendar.currentCalendar().components([.Year,.Month,.Day,.Hour,.Minute], fromDate: createdAt, toDate: NSDate(), options: [])
+    
+    if components.year >= 1 {
+      createdAtString = "\(components.year)yr"
+    }
+    else if components.month >= 1 {
+      createdAtString = "\(components.month)mo"
+    }
+    else if components.day >= 1 {
+      createdAtString = "\(components.day)d"
+    }
+    else if components.hour >= 1 {
+      createdAtString = "\(components.hour)h"
+    }
+    else if components.minute >= 1 {
+      createdAtString = "\(components.minute)m"
+    }
+    else {
+      createdAtString = "<1m"
+    }
     
     liked = dictionary["favorited"] as! Bool
     likedCount = dictionary["favorite_count"] as! Int
