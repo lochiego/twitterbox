@@ -31,7 +31,7 @@ class Tweet: NSObject {
   init(dictionary: NSDictionary) {
     self.dictionary = dictionary
     user = User(dictionary: dictionary["user"] as! NSDictionary)
-    id = (dictionary["id_str"] as! NSNumber).integerValue
+    id = (dictionary["id"] as! NSNumber).integerValue
     text = dictionary["text"] as! String
     let dateString = dictionary["created_at"] as! String
     
@@ -73,4 +73,24 @@ class Tweet: NSObject {
     
     return tweets
   }
+}
+
+extension Tweet {
+  
+  func retweet(retweet: Bool, completion: ((success: Bool, error: NSError?) -> Void)) {
+    TwitterClient.sharedInstance.POST("1.1/statuses/\(retweet ? "" : "un")retweet/\(id).json", parameters: nil, progress: nil, success: { (operation, response) -> Void in
+      completion(success: true, error: nil)
+      }) { (operation, error) -> Void in
+        completion(success: false, error: error)
+    }
+  }
+  
+  func likeTweet(like: Bool, completion: ((success: Bool, error: NSError?) -> Void)) {
+    TwitterClient.sharedInstance.POST("1.1/favorites/\(like ? "create" : "destroy").json", parameters: ["id":id], progress: nil, success: { (operation, response) -> Void in
+      completion(success: true, error: nil)
+      }) { (operation, error) -> Void in
+        completion(success: false, error: error)
+    }
+  }
+
 }

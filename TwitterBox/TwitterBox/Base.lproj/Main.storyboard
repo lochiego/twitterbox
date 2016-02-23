@@ -76,9 +76,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="z4P-yN-kvJ">
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What's happening?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pxb-dh-otB">
+                                    <rect key="frame" x="8" y="7" width="252" height="30"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aju-nd-fhj">
+                                    <rect key="frame" x="268" y="7" width="42" height="30"/>
+                                    <state key="normal" title="Tweet"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="Pxb-dh-otB" firstAttribute="leading" secondItem="z4P-yN-kvJ" secondAttribute="leading" constant="8" id="2In-qv-cAG"/>
+                                <constraint firstItem="aju-nd-fhj" firstAttribute="leading" secondItem="Pxb-dh-otB" secondAttribute="trailing" constant="8" id="IAG-gk-wYo"/>
+                                <constraint firstAttribute="trailing" secondItem="aju-nd-fhj" secondAttribute="trailing" constant="10" id="Krf-X6-TAC"/>
+                                <constraint firstItem="Pxb-dh-otB" firstAttribute="centerY" secondItem="z4P-yN-kvJ" secondAttribute="centerY" id="Lvu-WY-lwS"/>
+                                <constraint firstItem="aju-nd-fhj" firstAttribute="centerY" secondItem="z4P-yN-kvJ" secondAttribute="centerY" id="MpC-mR-0mQ"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="98" id="vWe-P9-J6i" customClass="TweetCell" customModule="TwitterBox" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="320" height="98"/>
+                                <rect key="frame" x="0.0" y="136" width="320" height="98"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vWe-P9-J6i" id="BLk-9f-uW9">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="97.5"/>
@@ -115,7 +138,6 @@
                                                 <constraint firstAttribute="height" constant="12" id="n6w-iz-I9z"/>
                                                 <constraint firstAttribute="width" constant="13" id="q8s-CL-amZ"/>
                                             </constraints>
-                                            <state key="normal" image="likeOff"/>
                                             <connections>
                                                 <action selector="onLike:" destination="vWe-P9-J6i" eventType="touchUpInside" id="UbM-7m-gXX"/>
                                             </connections>
@@ -126,7 +148,6 @@
                                                 <constraint firstAttribute="height" constant="12" id="i4L-ZK-aDW"/>
                                                 <constraint firstAttribute="width" constant="20" id="oie-2D-X7m"/>
                                             </constraints>
-                                            <state key="normal" image="retweet"/>
                                             <connections>
                                                 <action selector="onRetweet:" destination="vWe-P9-J6i" eventType="touchUpInside" id="hoB-Yn-3B4"/>
                                             </connections>
@@ -209,8 +230,4 @@
             <point key="canvasLocation" x="1027" y="366"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="likeOff" width="13" height="12"/>
-        <image name="retweet" width="20" height="12"/>
-    </resources>
 </document>

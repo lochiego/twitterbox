@@ -89,20 +89,4 @@ class TwitterClient: BDBOAuth1SessionManager {
         callback?(tweets: nil, error: error)
     })
   }
-  
-  func retweet(tweetId: Int, retweet: Bool, completion: ((success: Bool, error: NSError?) -> Void)) {
-    POST("1.1/statuses/\(retweet ? "" : "un")retweet/\(tweetId).json", parameters: nil, progress: nil, success: { (operation, response) -> Void in
-        completion(success: true, error: nil)
-      }) { (operation, error) -> Void in
-        completion(success: false, error: error)
-    }
-  }
-
-  func likeTweet(tweetId: Int, like: Bool, completion: ((success: Bool, error: NSError?) -> Void)) {
-    POST("1.1/favorites/\(like ? "create" : "destroy").json", parameters: ["id":tweetId], progress: nil, success: { (operation, response) -> Void in
-      completion(success: true, error: nil)
-      }) { (operation, error) -> Void in
-        completion(success: false, error: error)
-    }
-  }
 }

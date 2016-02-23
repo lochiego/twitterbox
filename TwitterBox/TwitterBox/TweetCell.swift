@@ -54,7 +54,7 @@ class TweetCell: UITableViewCell {
   }
   
   @IBAction func onRetweet(sender: AnyObject) {
-    TwitterClient.sharedInstance.retweet(tweet.id, retweet:!tweet.retweeted) { (success, error) in
+    tweet.retweet(!tweet.retweeted) { (success, error) in
       if success {
         let newRetweetStatus = !self.tweet.retweeted!
         self.tweet.retweetCounts! += newRetweetStatus ? 1 : -1
@@ -66,7 +66,7 @@ class TweetCell: UITableViewCell {
   }
   
   @IBAction func onLike(sender: AnyObject) {
-    TwitterClient.sharedInstance.likeTweet(tweet.id, like:!tweet.liked) { (success, error) in
+    tweet.likeTweet(!tweet.liked) { (success, error) in
       if success {
         let newLikeStatus = !self.tweet.liked!
         self.tweet.likedCount! += newLikeStatus ? 1 : -1
