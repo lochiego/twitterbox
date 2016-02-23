@@ -15,10 +15,29 @@ class TweetsViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    let image = UIImageView(image: UIImage(named: "TwitterLogo"))
+    self.navigationItem.titleView = image
+    
     tableView.dataSource = self
     tableView.delegate = self
     tableView.estimatedRowHeight = 100
     tableView.rowHeight = UITableViewAutomaticDimension
+    
+    let refreshControl = UIRefreshControl()
+    refreshControl.addTarget(self, action: Selector("onRefresh:"), forControlEvents: .ValueChanged)
+    self.refreshControl = refreshControl
+    
+    
+    // Set up Infinite Scroll loading indicator
+    let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+    loadingMoreView = InfiniteScrollActivityView(frame: frame)
+    loadingMoreView!.hidden = true
+    tableView.addSubview(loadingMoreView!)
+    
+    var insets = tableView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    tableView.contentInset = insets
+    
     
     TwitterClient.sharedInstance.fetchTweetsOlderThan(nil) { (tweets, error) -> Void in
       if let tweets = tweets {
@@ -66,6 +85,19 @@ class TweetsViewController: UITableViewController {
     TwitterClient.sharedInstance.logout()
   }
   
+  func onRefresh(event: UIEvent) {
+    TwitterClient.sharedInstance.fetchTweetsOlderThan(nil) { (tweets, error) -> Void in
+      if let tweets = tweets {
+        self.tweets = tweets
+        self.tableView.reloadData()
+      }
+      else {
+        self.alert("Error", message: "Unable to download feed. Try again later.", confirmAction: nil)
+      }
+      self.refreshControl?.endRefreshing()
+    }
+  }
+  
   /*
   // MARK: - Navigation
   
@@ -76,6 +108,47 @@ class TweetsViewController: UITableViewController {
   }
   */
   
+  var isMoreDataLoading: Bool = false
+  var loadingMoreView: InfiniteScrollActivityView!
+}
+
+extension TweetsViewController {
+  func loadMoreData() {
+    let lastTime = tweets.last?.id
+    TwitterClient.sharedInstance.fetchTweetsOlderThan(lastTime) { (tweets, error) -> Void in
+      if let tweets = tweets {
+        // ... Use the new data to update the data source ...
+        self.tweets.appendContentsOf(tweets)
+        self.tableView.reloadData()
+      }
+      
+      self.loadingMoreView.stopAnimating()
+      
+      // Update flag
+      self.isMoreDataLoading = false
+    }
+  }
+  
+  
+  override func scrollViewDidScroll(scrollView: UIScrollView) {
+    if (!isMoreDataLoading) {
+      
+      let scrollViewContentHeight = tableView.contentSize.height
+      let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.height * 2
+      
+      if (scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging) {
+        isMoreDataLoading = true
+        
+        // Update position of loadingMoreView, and start loading indicator
+        let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView.frame = frame
+        loadingMoreView.startAnimating()
+        
+        loadMoreData()
+      }
+    }
+  }
+
 }
 
 extension UIViewController {
