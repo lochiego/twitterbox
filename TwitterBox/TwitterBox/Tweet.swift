@@ -27,6 +27,12 @@ class Tweet: NSObject {
     return df
   }
   
+  static var humanFormatter: NSDateFormatter {
+    let df = NSDateFormatter()
+    df.dateFormat = "hh:mm a - d MMM y "
+    return df
+  }
+  
   
   init(dictionary: NSDictionary) {
     self.dictionary = dictionary
