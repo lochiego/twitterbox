@@ -31,7 +31,7 @@ class Tweet: NSObject {
   init(dictionary: NSDictionary) {
     self.dictionary = dictionary
     user = User(dictionary: dictionary["user"] as! NSDictionary)
-    id = (dictionary["id"] as! NSNumber).integerValue
+    id = (dictionary["id_str"] as! NSNumber).integerValue
     text = dictionary["text"] as! String
     let dateString = dictionary["created_at"] as! String
     
