@@ -32,7 +32,7 @@ class DetailViewController: UIViewController {
     super.viewDidLoad()
     
     doneButton.clipsToBounds = true
-    doneButton.layer.backgroundColor = UIColor(white: 0.7, alpha: 5.0).CGColor
+    doneButton.layer.backgroundColor = UIColor(red: 0.4, green: 0.8, blue: 1.0, alpha: 1.0).CGColor
     doneButton.layer.cornerRadius = 4
     
     replyTextView.layer.borderWidth = 1
@@ -102,7 +102,6 @@ class DetailViewController: UIViewController {
         if success {
           self.replyTextView.editable = false
           self.replyTextView.backgroundColor = UIColor(white: 0.8, alpha: 1.0)
-          
         }
       }
     }

@@ -29,7 +29,7 @@ class Tweet: NSObject {
   
   static var humanFormatter: NSDateFormatter {
     let df = NSDateFormatter()
-    df.dateFormat = "hh:mm a - d MMM y "
+    df.dateFormat = "hh:mm a - d MMM y"
     return df
   }
   
