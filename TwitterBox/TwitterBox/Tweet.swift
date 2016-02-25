@@ -98,5 +98,18 @@ extension Tweet {
         completion(success: false, error: error)
     }
   }
+  
+  func reply(reply: String, completion: ((success: Bool, error: NSError?) -> Void)) {
+    if reply.characters.count > 140 {
+      completion(success: false, error: NSError(domain: "TwitterBox", code: 1, userInfo: nil))
+    }
+    else {
+      TwitterClient.sharedInstance.POST("1.1/statuses/update.json", parameters: ["status":reply,"in_reply_to_status_id":id], progress: nil, success: { (operation, response) -> Void in
+        completion(success: true, error: nil)
+        }) { (operation, error) -> Void in
+          completion(success: false, error: error)
+      }
+    }
+  }
 
 }

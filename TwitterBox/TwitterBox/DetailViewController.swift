@@ -24,6 +24,8 @@ class DetailViewController: UIViewController {
   
   @IBOutlet weak var doneButton: UIButton!
   
+  @IBOutlet weak var replyTextView: UITextView!
+  
   var tweet: Tweet!
   
   override func viewDidLoad() {
@@ -33,11 +35,16 @@ class DetailViewController: UIViewController {
     doneButton.layer.backgroundColor = UIColor(white: 0.7, alpha: 5.0).CGColor
     doneButton.layer.cornerRadius = 4
     
+    replyTextView.layer.borderWidth = 1
+    replyTextView.layer.cornerRadius = 8
+    replyTextView.layer.borderColor = UIColor(white: 0.8, alpha: 1.0).CGColor
+    
     if let bannerUrlString = tweet.user.bannerImageUrl, bannerUrl = NSURL(string: bannerUrlString) {
       bannerView.setImageWithURL(bannerUrl)
     }
     if let profileUrlString = tweet.user.profileImageUrl, profileUrl = NSURL(string:profileUrlString) {
       profileView.setImageWithURL(profileUrl)
+      profileView.clipsToBounds = true
       profileView.layer.cornerRadius = 8
       profileView.layer.borderColor = UIColor.whiteColor().CGColor
       profileView.layer.borderWidth = 2
@@ -87,6 +94,19 @@ class DetailViewController: UIViewController {
     }
   }
 
+  @IBAction func onReply(sender: AnyObject) {
+    let replyText = replyTextView.text
+    let length = replyText.characters.count
+    if length > 0 && length <= 140 {
+      tweet.reply(replyText) { (success, error) in
+        if success {
+          self.replyTextView.editable = false
+          self.replyTextView.backgroundColor = UIColor(white: 0.8, alpha: 1.0)
+          
+        }
+      }
+    }
+  }
   
   /*
   // MARK: - Navigation
