@@ -17,10 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
     
-    if User.currentUser != nil {
+    if let user = User.currentUser {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsNavigationController")
+      let vc = storyboard.instantiateViewControllerWithIdentifier("TwitterRouter") as! UITabBarController
       
+      let accountView = (vc.viewControllers![1] as! UINavigationController).viewControllers.first as! ProfileViewController
+      accountView.user = user
+        
       window?.rootViewController = vc
     }
     

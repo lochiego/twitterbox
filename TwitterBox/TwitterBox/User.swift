@@ -13,21 +13,34 @@ let currentUserKey = "currentUserData"
 class User: NSObject {
   var name: String!
   var screenname: String!
-  var profileImageUrl: String?
+  var profileImageUrl: String!
   var bannerImageUrl: String?
   var tagline: String?
+  
+  var tweetsCount: Int!
+  var followingCount: Int!
+  var followersCount: Int!
   
   var dictionary: NSDictionary
   
   init(dictionary:NSDictionary) {
     self.dictionary = dictionary
-    name = dictionary["name"] as? String
-    screenname = dictionary["screen_name"] as? String
-    profileImageUrl = dictionary["profile_image_url"] as? String
+    name = dictionary["name"] as! String
+    screenname = dictionary["screen_name"] as! String
+    var imageUrl = dictionary["profile_image_url"] as! String
+    if let range = imageUrl.rangeOfString("_normal") {
+      imageUrl.replaceRange(range, with: "")
+    }
+    profileImageUrl = imageUrl
     bannerImageUrl = dictionary["profile_banner_url"] as? String
     tagline = dictionary["description"] as? String
+    
+    tweetsCount = (dictionary["statuses_count"] as! NSNumber).integerValue
+    followersCount = (dictionary["followers_count"] as! NSNumber).integerValue
+    followingCount = (dictionary["friends_count"] as! NSNumber).integerValue
+    
   }
-  
+    
   static var _currentUser: User?
   
   class var currentUser: User? {

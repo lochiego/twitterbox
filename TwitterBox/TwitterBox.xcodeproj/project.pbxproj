@@ -17,6 +17,10 @@
 		07237E141C72B4270057FFF4 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07237E131C72B4270057FFF4 /* Tweet.swift */; };
 		074A917F1C7814AA00B6AE5B /* TweetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074A917E1C7814AA00B6AE5B /* TweetsViewController.swift */; };
 		07A24B581C78222A008C2E79 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A24B571C78222A008C2E79 /* TweetCell.swift */; };
+		07F4DFD41C7FE3AD0074BD1A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4DFD31C7FE3AD0074BD1A /* ProfileViewController.swift */; };
+		07F4DFD61C7FE9520074BD1A /* ComposeTweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4DFD51C7FE9520074BD1A /* ComposeTweetViewController.swift */; };
+		07F4DFD81C7FF9230074BD1A /* TweetComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4DFD71C7FF9230074BD1A /* TweetComposeView.swift */; };
+		07F4DFDA1C7FF9340074BD1A /* TweetComposeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07F4DFD91C7FF9340074BD1A /* TweetComposeView.xib */; };
 		07FF792A1C7C0F0D00DD0217 /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FF79291C7C0F0D00DD0217 /* InfiniteScrollActivityView.swift */; };
 		07FF792C1C7C29CA00DD0217 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FF792B1C7C29CA00DD0217 /* DetailViewController.swift */; };
 		2F6A6BF5DEB617977F4B3D38 /* Pods_TwitterBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52D7A9EAEF51C943E175084A /* Pods_TwitterBox.framework */; };
@@ -35,6 +39,10 @@
 		07237E131C72B4270057FFF4 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		074A917E1C7814AA00B6AE5B /* TweetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsViewController.swift; sourceTree = "<group>"; };
 		07A24B571C78222A008C2E79 /* TweetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
+		07F4DFD31C7FE3AD0074BD1A /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		07F4DFD51C7FE9520074BD1A /* ComposeTweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeTweetViewController.swift; sourceTree = "<group>"; };
+		07F4DFD71C7FF9230074BD1A /* TweetComposeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetComposeView.swift; sourceTree = "<group>"; };
+		07F4DFD91C7FF9340074BD1A /* TweetComposeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetComposeView.xib; sourceTree = "<group>"; };
 		07FF79291C7C0F0D00DD0217 /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfiniteScrollActivityView.swift; path = "../../../FakeYelp/ios_yelp_swift-master/Yelp/InfiniteScrollActivityView.swift"; sourceTree = "<group>"; };
 		07FF792B1C7C29CA00DD0217 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		13947BAC96813607918BC770 /* Pods-TwitterBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TwitterBox.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TwitterBox/Pods-TwitterBox.debug.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +120,10 @@
 				074A917E1C7814AA00B6AE5B /* TweetsViewController.swift */,
 				07A24B571C78222A008C2E79 /* TweetCell.swift */,
 				07FF792B1C7C29CA00DD0217 /* DetailViewController.swift */,
+				07F4DFD31C7FE3AD0074BD1A /* ProfileViewController.swift */,
+				07F4DFD51C7FE9520074BD1A /* ComposeTweetViewController.swift */,
+				07F4DFD71C7FF9230074BD1A /* TweetComposeView.swift */,
+				07F4DFD91C7FF9340074BD1A /* TweetComposeView.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -198,6 +210,7 @@
 				07237E041C6D9ACD0057FFF4 /* LaunchScreen.storyboard in Resources */,
 				07237E011C6D9ACD0057FFF4 /* Assets.xcassets in Resources */,
 				07237DFF1C6D9ACD0057FFF4 /* Main.storyboard in Resources */,
+				07F4DFDA1C7FF9340074BD1A /* TweetComposeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,12 +271,15 @@
 			files = (
 				07FF792C1C7C29CA00DD0217 /* DetailViewController.swift in Sources */,
 				07FF792A1C7C0F0D00DD0217 /* InfiniteScrollActivityView.swift in Sources */,
+				07F4DFD41C7FE3AD0074BD1A /* ProfileViewController.swift in Sources */,
 				07237E121C72B41C0057FFF4 /* User.swift in Sources */,
 				07A24B581C78222A008C2E79 /* TweetCell.swift in Sources */,
 				07237E141C72B4270057FFF4 /* Tweet.swift in Sources */,
 				074A917F1C7814AA00B6AE5B /* TweetsViewController.swift in Sources */,
+				07F4DFD81C7FF9230074BD1A /* TweetComposeView.swift in Sources */,
 				07237DFC1C6D9ACD0057FFF4 /* LoginViewController.swift in Sources */,
 				07237E0D1C6D9C100057FFF4 /* TwitterClient.swift in Sources */,
+				07F4DFD61C7FE9520074BD1A /* ComposeTweetViewController.swift in Sources */,
 				07237DFA1C6D9ACD0057FFF4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

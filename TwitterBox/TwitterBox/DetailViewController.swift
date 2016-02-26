@@ -24,7 +24,7 @@ class DetailViewController: UIViewController {
   
   @IBOutlet weak var doneButton: UIButton!
   
-  @IBOutlet weak var replyTextView: UITextView!
+  weak var replyView: TweetComposeView!
   
   var tweet: Tweet!
   
@@ -35,11 +35,10 @@ class DetailViewController: UIViewController {
     doneButton.layer.backgroundColor = UIColor(red: 0.4, green: 0.8, blue: 1.0, alpha: 1.0).CGColor
     doneButton.layer.cornerRadius = 4
     
-    replyTextView.layer.borderWidth = 1
-    replyTextView.layer.cornerRadius = 8
-    replyTextView.layer.borderColor = UIColor(white: 0.8, alpha: 1.0).CGColor
+    replyView = TweetComposeView.instantiateFromNib()
     
     if let bannerUrlString = tweet.user.bannerImageUrl, bannerUrl = NSURL(string: bannerUrlString) {
+      bannerView.clipsToBounds = true
       bannerView.setImageWithURL(bannerUrl)
     }
     if let profileUrlString = tweet.user.profileImageUrl, profileUrl = NSURL(string:profileUrlString) {
@@ -95,13 +94,12 @@ class DetailViewController: UIViewController {
   }
 
   @IBAction func onReply(sender: AnyObject) {
-    let replyText = replyTextView.text
+    let replyText = replyView.tweetView.text
     let length = replyText.characters.count
     if length > 0 && length <= 140 {
       tweet.reply(replyText) { (success, error) in
         if success {
-          self.replyTextView.editable = false
-          self.replyTextView.backgroundColor = UIColor(white: 0.8, alpha: 1.0)
+          self.replyView.sendButton.enabled = false
         }
       }
     }
@@ -116,5 +114,14 @@ class DetailViewController: UIViewController {
   // Pass the selected object to the new view controller.
   }
   */
+  
+}
+
+extension DetailViewController: UITextViewDelegate {
+
+  func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    return text.characters.count <= 140
+  }
+  
   
 }

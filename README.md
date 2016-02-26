@@ -68,10 +68,10 @@ Time spent: **X** hours spent in total
 
 The following **required** functionality is completed:
 
-- [ ] Tweet Details Page: User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
+- [X] Tweet Details Page: User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
 - [ ] Profile page:
-- [ ] Contains the user header view
-- [ ] Contains a section with the users basic stats: # tweets, # following, # followers
+  - [ ] Contains the user header view
+  - [ ] Contains a section with the users basic stats: # tweets, # following, # followers
 - [ ] Home Timeline: Tapping on a user image should bring up that user's profile page
 - [ ] Compose Page: User can compose a new tweet by tapping on a compose button.
 
