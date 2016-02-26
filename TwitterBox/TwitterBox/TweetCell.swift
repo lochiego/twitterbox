@@ -11,7 +11,7 @@ import AFNetworking
 
 class TweetCell: UITableViewCell {
   
-  @IBOutlet weak var profileView: UIImageView!
+  @IBOutlet weak var profileView: UIButton!
   @IBOutlet weak var displayNameLabel: UILabel!
   @IBOutlet weak var handleLabel: UILabel!
   @IBOutlet weak var tweetLabel: UILabel!
@@ -23,11 +23,13 @@ class TweetCell: UITableViewCell {
   @IBOutlet weak var likeButton: UIButton!
   @IBOutlet weak var likeCountLabel: UILabel!
   
+  static var profileHitNotification = "kProfileImageHit"
+  
   var tweet: Tweet! {
     didSet {
-      if let imageUrl = tweet?.user.profileImageUrl {
-        profileView.setImageWithURL(NSURL(string: imageUrl)!)
-      }
+      let imageUrl = tweet.user.profileImageUrl
+      
+      profileView.setImageForState(.Normal, withURL: NSURL(string: imageUrl)!)
       displayNameLabel.text = tweet.user.name
       handleLabel.text = "@\(tweet.user.screenname)"
       tweetLabel.text = tweet.text
@@ -36,6 +38,8 @@ class TweetCell: UITableViewCell {
       retweetCountLabel.text = "\(tweet.retweetCounts)"
       likeButton.setImage(tweet.liked! ? UIImage(named: "likeOn") : UIImage(named: "likeOff"), forState: .Normal)
       likeCountLabel.text = "\(tweet.likedCount)"
+      
+      profileView.addTarget(self, action: Selector("openProfile"), forControlEvents: .TouchUpInside)
     }
   }
   
@@ -75,5 +79,9 @@ class TweetCell: UITableViewCell {
         self.likeButton.setImage(newLikeStatus ? UIImage(named: "likeOn") : UIImage(named: "likeOff"), forState: .Normal)
       }
     }
+  }
+  
+  func openProfile() {
+    NSNotificationCenter.defaultCenter().postNotificationName(TweetCell.profileHitNotification, object: tweet.user)
   }
 }

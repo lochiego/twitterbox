@@ -50,6 +50,14 @@ class TweetsViewController: UITableViewController {
     }
   }
   
+  override func viewWillAppear(animated: Bool) {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("selectedProfile:"), name: TweetCell.profileHitNotification, object: nil)
+  }
+  
+  override func viewDidDisappear(animated: Bool) {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
@@ -96,6 +104,15 @@ class TweetsViewController: UITableViewController {
       }
       self.refreshControl?.endRefreshing()
     }
+  }
+  
+  func selectedProfile(notification:NSNotification) {
+    let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+    
+    profileVC.user = notification.object as! User
+    profileVC.navigationItem.leftBarButtonItem = nil
+    profileVC.navigationItem.backBarButtonItem?.tintColor = UIColor.whiteColor()
+    self.navigationController?.pushViewController(profileVC, animated: true)
   }
   
   // MARK: - Navigation

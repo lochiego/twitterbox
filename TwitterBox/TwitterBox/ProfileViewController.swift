@@ -30,6 +30,8 @@ class ProfileViewController: UIViewController {
     }
     if let profileUrl = user.profileImageUrl {
       profileView.setImageWithURL(NSURL(string:profileUrl)!)
+      profileView.layer.cornerRadius = 8
+      profileView.clipsToBounds = true
     }
     nameView.text = user.name
     handleView.text = "@\(user.screenname)"
