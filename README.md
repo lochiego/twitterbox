@@ -62,7 +62,7 @@ Describe any challenges encountered while building the app.
 
 # Project 5 - *TwitterBox*
 
-Time spent: **X** hours spent in total
+Time spent: **7** hours spent in total
 
 ## User Stories
 
@@ -79,10 +79,10 @@ The following **optional** features are implemented:
 
 - [ ] When composing, you should have a countdown in the upper right for the tweet limit.
 - [ ] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
-- [ ] Profile Page
-- [ ] Implement the paging view for the user description.
-- [ ] As the paging view moves, increase the opacity of the background screen. See the actual Twitter app for this effect
-- [ ] Pulling down the profile page should blur and resize the header image.
+  - [ ] Profile Page
+  - [ ] Implement the paging view for the user description.
+  - [ ] As the paging view moves, increase the opacity of the background screen. See the actual Twitter app for this effect
+  - [ ] Pulling down the profile page should blur and resize the header image.
 - [ ] Account switching
 - [ ] Long press on tab bar to bring up Account view with animation
 - [ ] Tap account to switch to
@@ -91,18 +91,16 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
-
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. How to reuse with the elements between pages being so similar
+2. How best to present tweet interface that can be reused between compose and reply
 
-## Video Walkthrough 
+## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/Pt9RnH6.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
