@@ -111,5 +111,13 @@ extension Tweet {
       }
     }
   }
+  
+  class func tweet(tweet: String, completion: ((success: Bool, error: NSError?) -> Void)) {
+    TwitterClient.sharedInstance.POST("1.1/statuses/update.json", parameters: ["status":tweet], progress: nil, success: { (operation, error) -> Void in
+        completion(success: true, error: nil)
+      }) { (operation, error) -> Void in
+        completion(success: false, error: error)
+    }
+  }
 
 }

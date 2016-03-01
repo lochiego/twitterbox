@@ -115,6 +115,12 @@ class TweetsViewController: UITableViewController {
     self.navigationController?.pushViewController(profileVC, animated: true)
   }
   
+  @IBAction func onCompose(sender: AnyObject) {
+    let nvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("ComposeNavigationController") as! UINavigationController
+    
+    self.presentViewController(nvc, animated: true, completion: nil)
+  }
+  
   // MARK: - Navigation
   
   // In a storyboard-based application, you will often want to do a little preparation before navigation

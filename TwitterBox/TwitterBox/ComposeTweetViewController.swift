@@ -16,6 +16,7 @@ class ComposeTweetViewController: UIViewController {
         super.viewDidLoad()
 
       tweetTextView.becomeFirstResponder()
+      tweetTextView.selectAll(nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,7 +24,21 @@ class ComposeTweetViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+  @IBAction func onTweet(sender: AnyObject?) {
+    Tweet.tweet(tweetTextView.text) { (success, error) -> Void in
+      if success {
+        self.onCancel(nil)
+      }
+      else {
+        self.alert("Error", message: "Problem sending tweet. You lose.", confirmAction: nil)
+      }
+    }
+  }
 
+  @IBAction func onCancel(sender: AnyObject?) {
+    self.navigationController?.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
     /*
     // MARK: - Navigation
 
